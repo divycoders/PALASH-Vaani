@@ -11,12 +11,16 @@ import 'features/lessons/presentation/screens/lessons_screen.dart';
 import 'features/translator/presentation/screens/translator_screen.dart';
 import 'features/worksheets/presentation/screens/worksheets_screen.dart';
 
+import 'features/lessons/data/repositories/curriculum_repository.dart';
+
 class PalashVaaniApp extends StatelessWidget {
   final IConnectivityService? connectivityService;
+  final ICurriculumRepository? curriculumRepository;
 
   const PalashVaaniApp({
     super.key,
     this.connectivityService,
+    this.curriculumRepository,
   });
 
   @override
@@ -26,7 +30,10 @@ class PalashVaaniApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       onGenerateRoute: AppRoutes.onGenerateRoute,
-      home: MainShellScreen(connectivityService: connectivityService),
+      home: MainShellScreen(
+        connectivityService: connectivityService,
+        curriculumRepository: curriculumRepository,
+      ),
     );
   }
 }
@@ -34,10 +41,12 @@ class PalashVaaniApp extends StatelessWidget {
 /// Main application shell holding the responsive scaffold and indexed screens
 class MainShellScreen extends StatefulWidget {
   final IConnectivityService? connectivityService;
+  final ICurriculumRepository? curriculumRepository;
 
   const MainShellScreen({
     super.key,
     this.connectivityService,
+    this.curriculumRepository,
   });
 
   @override
@@ -78,7 +87,7 @@ class _MainShellScreenState extends State<MainShellScreen> {
   Widget build(BuildContext context) {
     final screens = [
       HomeScreen(onNavigateToTab: _onIndexChanged),
-      const LessonsScreen(),
+      LessonsScreen(repository: widget.curriculumRepository),
       const ClassroomScreen(),
       const TranslatorScreen(),
       const WorksheetsScreen(),

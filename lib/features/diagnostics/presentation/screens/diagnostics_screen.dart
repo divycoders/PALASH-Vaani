@@ -78,9 +78,9 @@ class DiagnosticsScreen extends StatelessWidget {
                 const Divider(),
                 _buildDiagnosticRow(
                   title: 'Curriculum Database',
-                  subtitle: 'Local SQLite curriculum storage',
-                  status: 'Pending (M3)',
-                  statusColor: AppColors.warning,
+                  subtitle: 'Local SQLite storage (5 tables active)',
+                  status: 'Active (M3)',
+                  statusColor: AppColors.success,
                 ),
                 const Divider(),
                 _buildDiagnosticRow(
