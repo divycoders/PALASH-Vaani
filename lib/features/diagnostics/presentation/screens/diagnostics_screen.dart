@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/services/connectivity_service.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/widgets/app_button.dart';
@@ -6,7 +7,12 @@ import '../../../../core/widgets/app_card.dart';
 import '../../../../core/widgets/status_badge.dart';
 
 class DiagnosticsScreen extends StatelessWidget {
-  const DiagnosticsScreen({super.key});
+  final IConnectivityService? connectivityService;
+
+  const DiagnosticsScreen({
+    super.key,
+    this.connectivityService,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +47,27 @@ class DiagnosticsScreen extends StatelessWidget {
           AppCard(
             child: Column(
               children: [
-                _buildDiagnosticRow(
-                  title: 'Network Mode',
-                  subtitle: 'Strict local execution, no cloud APIs',
-                  status: 'Local Only',
-                  statusColor: AppColors.offline,
-                ),
+                if (connectivityService != null)
+                  StreamBuilder<AppNetworkStatus>(
+                    stream: connectivityService!.onStatusChanged,
+                    initialData: connectivityService!.currentStatus,
+                    builder: (context, snapshot) {
+                      final isOffline = (snapshot.data ?? AppNetworkStatus.offline) == AppNetworkStatus.offline;
+                      return _buildDiagnosticRow(
+                        title: 'Network Mode',
+                        subtitle: 'Strict local execution, zero cloud APIs',
+                        status: isOffline ? 'Offline (Local Only)' : 'Online (Local Only)',
+                        statusColor: isOffline ? AppColors.offline : AppColors.online,
+                      );
+                    },
+                  )
+                else
+                  _buildDiagnosticRow(
+                    title: 'Network Mode',
+                    subtitle: 'Strict local execution, zero cloud APIs',
+                    status: 'Offline (Local Only)',
+                    statusColor: AppColors.offline,
+                  ),
                 const Divider(),
                 _buildDiagnosticRow(
                   title: 'Flutter Foundation',

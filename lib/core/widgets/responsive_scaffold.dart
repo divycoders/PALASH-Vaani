@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import '../services/connectivity_service.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_spacing.dart';
+import 'network_status_indicator.dart';
 
 /// Navigation item definition for responsive shell
 class NavigationItemData {
@@ -81,6 +83,8 @@ class ResponsiveScaffold extends StatelessWidget {
     ),
   ];
 
+  final IConnectivityService? connectivityService;
+
   const ResponsiveScaffold({
     super.key,
     required this.selectedIndex,
@@ -89,6 +93,7 @@ class ResponsiveScaffold extends StatelessWidget {
     this.title,
     this.actions,
     this.floatingActionButton,
+    this.connectivityService,
   });
 
   @override
@@ -141,35 +146,13 @@ class ResponsiveScaffold extends StatelessWidget {
         ],
       ),
       actions: [
-        // Offline Status indicator badge placeholder for Milestone 1 / Milestone 2
-        Padding(
-          padding: const EdgeInsets.only(right: AppSpacing.md),
-          child: Center(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: AppColors.offline.withValues(alpha: 0.12),
-                borderRadius: AppSpacing.roundedPill,
-                border: Border.all(color: AppColors.offline.withValues(alpha: 0.5)),
-              ),
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.circle, size: 8, color: AppColors.offline),
-                  SizedBox(width: 5),
-                  Text(
-                    'Offline Ready',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.offline,
-                    ),
-                  ),
-                ],
-              ),
+        if (connectivityService != null)
+          Padding(
+            padding: const EdgeInsets.only(right: AppSpacing.md),
+            child: Center(
+              child: NetworkStatusIndicator(connectivityService: connectivityService!),
             ),
           ),
-        ),
         ...?actions,
       ],
     );
