@@ -101,6 +101,7 @@ class SpeechRecognitionService {
         listenMode: ListenMode.dictation,
         cancelOnError: false,
         partialResults: true,
+        onDevice: true,
         localeId: targetLocaleId,
       );
 

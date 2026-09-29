@@ -223,8 +223,14 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
           if (!mounted) return;
           setState(() {
             _isListening = false;
-            if (_inputController.text.trim().isEmpty) {
-              _liveSpeechStatus = 'माइक में आवाज़ नहीं मिली • कृपया दोबारा बोलें या नीचे टाइप करें';
+            final errStr = error.toLowerCase();
+            if (errStr.contains('language_unavailable') ||
+                errStr.contains('network') ||
+                errStr.contains('server')) {
+              _liveSpeechStatus =
+                  '⚠️ ऑफ़लाइन माइक: Android OS में Hindi वॉइस पैक चाहिए (Settings > Voice Typing > Offline Speech) • नीचे त्वरित वाक्य दबाएं या टाइप करें';
+            } else {
+              _liveSpeechStatus = 'माइक में आवाज़ नहीं मिली • कृपया दोबारा बोलें या नीचे त्वरित वाक्य चुनें';
             }
           });
         },
@@ -389,6 +395,28 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
     }
     _inputController.dispose();
     super.dispose();
+  }
+
+  Widget _buildQuickVoiceChip(String text, String label) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 6),
+      child: ActionChip(
+        avatar: const Icon(Icons.volume_up_rounded, size: 13, color: AppColors.primary),
+        label: Text(label, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600)),
+        backgroundColor: Colors.white,
+        side: BorderSide(color: AppColors.primary.withValues(alpha: 0.25)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+        onPressed: () {
+          setState(() {
+            _inputController.text = text;
+            _liveSpeechStatus = '🗣️ ऑफ़लाइन वाक्य: "$text"';
+          });
+          _translate();
+          _playAudio();
+        },
+      ),
+    );
   }
 
   List<Map<String, String>> _getPedagogyItems() {
@@ -741,6 +769,26 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
                       onPressed: _translate,
                     ),
                   ],
+                ),
+                const SizedBox(height: AppSpacing.sm),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      const Text(
+                        '⚡ 1-टैप बोलें: ',
+                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary),
+                      ),
+                      _buildQuickVoiceChip('अपनी किताब खोलो', '📖 किताब खोलो'),
+                      _buildQuickVoiceChip('सब शांत हो जाओ', '🤫 शांत रहो'),
+                      _buildQuickVoiceChip('बैठ जाओ', '🪑 बैठ जाओ'),
+                      _buildQuickVoiceChip('हाथ धो लो', '🧼 हाथ धो लो'),
+                      _buildQuickVoiceChip('पानी पी लो', '💧 पानी पी लो'),
+                      _buildQuickVoiceChip('open your book', '🇬🇧 open book'),
+                      _buildQuickVoiceChip('sit down', '🇬🇧 sit down'),
+                      _buildQuickVoiceChip('pani pina hai', '🗣️ pani pina hai'),
+                    ],
+                  ),
                 ),
               ],
             ),

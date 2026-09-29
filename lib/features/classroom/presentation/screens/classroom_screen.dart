@@ -464,7 +464,15 @@ class _ClassroomScreenState extends State<ClassroomScreen> {
           if (!mounted) return;
           setState(() {
             _isListening = false;
-            _liveSpeechStatus = 'माइक में आवाज़ नहीं मिली';
+            final errStr = err.toLowerCase();
+            if (errStr.contains('language_unavailable') ||
+                errStr.contains('network') ||
+                errStr.contains('server')) {
+              _liveSpeechStatus =
+                  '⚠️ ऑफ़लाइन माइक: Android OS में Hindi वॉइस पैक चाहिए (Settings > Voice Typing > Offline Speech) • त्वरित मोमेंट्स दबाएं या लिखें';
+            } else {
+              _liveSpeechStatus = 'माइक में आवाज़ नहीं मिली • कृपया दोबारा बोलें या नीचे मोमेंट्स चुनें';
+            }
           });
         },
       );
