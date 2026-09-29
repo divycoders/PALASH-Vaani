@@ -9,6 +9,7 @@ import 'features/flashcards/presentation/screens/flashcards_screen.dart';
 import 'features/home/presentation/screens/home_screen.dart';
 import 'features/lessons/presentation/screens/lessons_screen.dart';
 import 'features/translator/presentation/screens/translator_screen.dart';
+import 'features/quiz/presentation/screens/quiz_screen.dart';
 import 'features/worksheets/presentation/screens/worksheets_screen.dart';
 
 import 'features/lessons/data/repositories/curriculum_repository.dart';
@@ -90,6 +91,7 @@ class _MainShellScreenState extends State<MainShellScreen> {
       LessonsScreen(repository: widget.curriculumRepository),
       const ClassroomScreen(),
       const TranslatorScreen(),
+      const QuizScreen(),
       const WorksheetsScreen(),
       const FlashcardsScreen(),
       DiagnosticsScreen(connectivityService: _connectivityService),

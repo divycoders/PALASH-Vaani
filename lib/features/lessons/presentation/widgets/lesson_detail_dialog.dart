@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import '../../../../core/services/audio_tts_service.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_card.dart';
+import '../../../../core/widgets/natural_audio_button.dart';
 import '../../../../core/widgets/status_badge.dart';
 import '../../data/models/learning_outcome_model.dart';
 import '../../data/models/lesson_model.dart';
@@ -48,13 +50,25 @@ class LessonDetailDialog extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          '${lesson.titleHi} • ${lesson.titleSat}',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.primaryDark,
-                          ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                '${lesson.titleHi} • ${lesson.titleSat}',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.primaryDark,
+                                ),
+                              ),
+                            ),
+                            NaturalAudioButton(
+                              textToSpeak: 'पाठ: ${lesson.titleHi}. विषय: ${lesson.subject}. ओल चिकी: ${lesson.titleSat}',
+                              speakId: 'dialog_header_${lesson.id}',
+                              isCompact: true,
+                              tooltip: 'पाठ का शीर्षक सुनें',
+                            ),
+                          ],
                         ),
                         Text(
                           '${lesson.grade} • ${lesson.subject} • ${lesson.titleEn}',
@@ -63,9 +77,38 @@ class LessonDetailDialog extends StatelessWidget {
                       ],
                     ),
                   ),
+                  ValueListenableBuilder<String?>(
+                    valueListenable: AudioTtsService.instance.currentPlayingIdNotifier,
+                    builder: (context, playingId, _) {
+                      if (playingId == null) return const SizedBox.shrink();
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 6.0),
+                        child: ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red.shade600,
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                            minimumSize: const Size(0, 30),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                            elevation: 2,
+                          ),
+                          onPressed: () => AudioTtsService.instance.stop(),
+                          icon: const Icon(Icons.stop_circle_rounded, size: 16, color: Colors.white),
+                          label: const Text(
+                            'रोकें (Stop)',
+                            style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                   IconButton(
                     icon: const Icon(Icons.close),
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () {
+                      AudioTtsService.instance.stop();
+                      Navigator.of(context).pop();
+                    },
                   ),
                 ],
               ),
@@ -202,6 +245,13 @@ class LessonDetailDialog extends StatelessWidget {
                   Wrap(
                     spacing: AppSpacing.sm,
                     children: [
+                      NaturalAudioButton(
+                        textToSpeak: 'पाठ का विवरण: ${lesson.titleHi}. शिक्षण उद्देश्य: ${lesson.objectiveHi}. स्थानीय संदर्भ: ${lesson.contentHi}',
+                        speakId: 'dialog_content_${lesson.id}',
+                        label: 'पूरा पाठ सुनें',
+                        backgroundColor: AppColors.primary,
+                        iconSize: 18,
+                      ),
                       AppButton(
                         label: lesson.isCompleted ? 'Mark Incomplete' : 'Mark Complete',
                         icon: lesson.isCompleted ? Icons.undo : Icons.check,

@@ -6,6 +6,7 @@ import '../../features/translator/presentation/screens/translator_screen.dart';
 import '../../features/worksheets/presentation/screens/worksheets_screen.dart';
 import '../../features/flashcards/presentation/screens/flashcards_screen.dart';
 import '../../features/diagnostics/presentation/screens/diagnostics_screen.dart';
+import '../../features/quiz/presentation/screens/quiz_screen.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -14,12 +15,18 @@ class AppRoutes {
   static const String lessons = '/lessons';
   static const String classroom = '/classroom';
   static const String translator = '/translator';
+  static const String quiz = '/quiz';
   static const String worksheets = '/worksheets';
   static const String flashcards = '/flashcards';
   static const String diagnostics = '/diagnostics';
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case quiz:
+        return MaterialPageRoute(
+          builder: (_) => const QuizScreen(),
+          settings: settings,
+        );
       case home:
         return MaterialPageRoute(
           builder: (_) => const HomeScreen(),
