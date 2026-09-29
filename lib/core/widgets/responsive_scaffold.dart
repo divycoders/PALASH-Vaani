@@ -61,6 +61,13 @@ class ResponsiveScaffold extends StatelessWidget {
       routeName: '/translator',
     ),
     NavigationItemData(
+      label: 'Quiz',
+      vernacularLabel: 'प्रश्नोत्तरी',
+      icon: Icons.quiz_outlined,
+      selectedIcon: Icons.quiz,
+      routeName: '/quiz',
+    ),
+    NavigationItemData(
       label: 'Worksheets',
       vernacularLabel: 'पत्रक',
       icon: Icons.description_outlined,
@@ -185,7 +192,14 @@ class ResponsiveScaffold extends StatelessWidget {
               }).toList(),
             ),
             const VerticalDivider(thickness: 1, width: 1),
-            Expanded(child: body),
+            Expanded(
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1050),
+                  child: body,
+                ),
+              ),
+            ),
           ],
         ),
       );
@@ -252,9 +266,9 @@ class ResponsiveScaffold extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 ListTile(
-                  leading: const Icon(Icons.description_outlined, color: AppColors.primary),
-                  title: const Text('Worksheets (कार्यपत्रक)'),
-                  subtitle: const Text('Offline bilingual worksheet generator'),
+                  leading: const Icon(Icons.quiz_outlined, color: AppColors.primary),
+                  title: const Text('बाल प्रश्नोत्तरी (Kids Dynamic Quiz)'),
+                  subtitle: const Text('अनलिमिटेड नए प्रश्न • FLN गणित, संथाली भाषा व EVS'),
                   selected: selectedIndex == 4,
                   onTap: () {
                     Navigator.pop(ctx);
@@ -262,9 +276,9 @@ class ResponsiveScaffold extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.style_outlined, color: AppColors.primary),
-                  title: const Text('Flashcards (फ़्लैशकार्ड)'),
-                  subtitle: const Text('Bilingual visual vocabulary deck'),
+                  leading: const Icon(Icons.description_outlined, color: AppColors.primary),
+                  title: const Text('Worksheets (कार्यपत्रक)'),
+                  subtitle: const Text('Offline bilingual worksheet generator'),
                   selected: selectedIndex == 5,
                   onTap: () {
                     Navigator.pop(ctx);
@@ -272,13 +286,23 @@ class ResponsiveScaffold extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.analytics_outlined, color: AppColors.primary),
-                  title: const Text('Diagnostics & Settings (सिस्टम स्थिति)'),
-                  subtitle: const Text('Hardware telemetry, latencies, model status'),
+                  leading: const Icon(Icons.style_outlined, color: AppColors.primary),
+                  title: const Text('Flashcards (फ़्लैशकार्ड)'),
+                  subtitle: const Text('Bilingual visual vocabulary deck'),
                   selected: selectedIndex == 6,
                   onTap: () {
                     Navigator.pop(ctx);
                     onIndexChanged(6);
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.analytics_outlined, color: AppColors.primary),
+                  title: const Text('Diagnostics & Settings (सिस्टम स्थिति)'),
+                  subtitle: const Text('Hardware telemetry, latencies, model status'),
+                  selected: selectedIndex == 7,
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    onIndexChanged(7);
                   },
                 ),
               ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/services/audio_tts_service.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/widgets/app_button.dart';
@@ -12,6 +13,31 @@ class HomeScreen extends StatelessWidget {
     super.key,
     this.onNavigateToTab,
   });
+
+  Future<void> _playPhrase(BuildContext context, String devPhonetic, String title, String script) async {
+    await AudioTtsService.instance.speak(devPhonetic, languageCode: 'hi-IN');
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              const Icon(Icons.volume_up, color: Colors.white, size: 20),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  '🔊 $title: $script ($devPhonetic)',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+          backgroundColor: AppColors.primaryDark,
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +98,7 @@ class HomeScreen extends StatelessWidget {
                             children: [
                               StatusBadge.offline(),
                               const StatusBadge(
-                                label: 'Hindi ⇄ Santhali (Ol Chiki)',
+                                label: 'Hindi ⇄ Santhali • Ho • Mundari',
                                 color: AppColors.tagLanguage,
                                 icon: Icons.translate,
                               ),
@@ -92,13 +118,272 @@ class HomeScreen extends StatelessWidget {
                     height: 1.45,
                   ),
                 ),
+                const SizedBox(height: AppSpacing.md),
+                const Wrap(
+                  spacing: AppSpacing.xs,
+                  runSpacing: AppSpacing.xs,
+                  children: [
+                    StatusBadge(label: '5 NIPUN FLN Lessons', color: AppColors.tagMath, icon: Icons.menu_book),
+                    StatusBadge(label: 'Sub-3s Voice Bridge', color: AppColors.secondary, icon: Icons.bolt),
+                    StatusBadge(label: 'Offline PDF Worksheets', color: AppColors.primary, icon: Icons.print),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: AppSpacing.md),
+
+          // Dynamic Kids Quiz Hero Card
+          InkWell(
+            onTap: () => onNavigateToTab?.call(4),
+            borderRadius: BorderRadius.circular(16),
+            child: Container(
+              padding: const EdgeInsets.all(AppSpacing.md),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF1E3C72), Color(0xFF2A5298)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF1E3C72).withValues(alpha: 0.35),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 44,
+                        height: 44,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.15),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Text('🧠', style: TextStyle(fontSize: 24)),
+                      ),
+                      const SizedBox(width: AppSpacing.md),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Wrap(
+                              spacing: 6,
+                              runSpacing: 4,
+                              crossAxisAlignment: WrapCrossAlignment.center,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                  decoration: BoxDecoration(
+                                    color: Colors.amber,
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  child: const Text(
+                                    'NEW • असीमित प्रश्न',
+                                    style: TextStyle(color: Colors.black87, fontSize: 10, fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                const Text('⭐ +2 Stars / प्रश्न', style: TextStyle(color: Colors.white70, fontSize: 11)),
+                              ],
+                            ),
+                            const SizedBox(height: 3),
+                            const Text(
+                              'दैनिक बाल प्रश्नोत्तरी (Kids Dynamic Quiz)',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'FLN गणित, संथाली भाषा व EVS के नए प्रश्न हर बार खेल-खेल में सीखें!',
+                    style: TextStyle(color: Colors.white70, fontSize: 12),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.amber,
+                        foregroundColor: Colors.black,
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      ),
+                      icon: const Icon(Icons.play_arrow_rounded, size: 20),
+                      label: const Text('क्विज़ शुरू करें (Start Quiz)', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                      onPressed: () => onNavigateToTab?.call(4),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          const SizedBox(height: AppSpacing.lg),
+
+          // 1-Tap Daily Classroom Moments (Zero-Typing Quick Hub)
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  '⚡ 1-Tap Classroom Moments (कक्षा बातचीत)',
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primaryDark,
+                      ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              TextButton.icon(
+                onPressed: () => onNavigateToTab?.call(2),
+                icon: const Icon(Icons.arrow_forward, size: 14),
+                label: const Text('All Routine', style: TextStyle(fontSize: 12)),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                _buildQuickMomentCard(
+                  context: context,
+                  emoji: '🌅',
+                  title: 'नमस्ते बच्चों',
+                  phonetic: 'जोहार गिद्रा',
+                  script: 'ᱡᱚᱦᱟᱨ ᱜᱤᱫᱽᱨᱟᱹ',
+                  color: Colors.amber.shade800,
+                  bgColor: Colors.amber.shade50,
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                _buildQuickMomentCard(
+                  context: context,
+                  emoji: '🪑',
+                  title: 'बैठ जाओ',
+                  phonetic: 'दुड़ुब मे',
+                  script: 'ᱫᱩᱲᱩᱵ ᱢᱮ',
+                  color: Colors.teal.shade800,
+                  bgColor: Colors.teal.shade50,
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                _buildQuickMomentCard(
+                  context: context,
+                  emoji: '🧼',
+                  title: 'हाथ धो लो',
+                  phonetic: 'ती अरुब मे',
+                  script: 'ᱛᱤ ᱟᱹᱨᱩᱵ ᱢᱮ',
+                  color: Colors.blue.shade800,
+                  bgColor: Colors.blue.shade50,
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                _buildQuickMomentCard(
+                  context: context,
+                  emoji: '🍲',
+                  title: 'खाना खा लो',
+                  phonetic: 'दाका जोम मे',
+                  script: 'ᱫᱟᱠᱟ ᱡᱚᱢ ᱢᱮ',
+                  color: Colors.deepOrange.shade800,
+                  bgColor: Colors.deepOrange.shade50,
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                _buildQuickMomentCard(
+                  context: context,
+                  emoji: '📖',
+                  title: 'किताब खोलो',
+                  phonetic: 'आमाग पुथि खुलाय मे',
+                  script: 'ᱟᱢᱟᱜ ᱯᱩᱛᱷᱤ ᱠᱷᱩᱞᱟᱹᱭ ᱢᱮ',
+                  color: Colors.indigo.shade800,
+                  bgColor: Colors.indigo.shade50,
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                _buildQuickMomentCard(
+                  context: context,
+                  emoji: '🏃‍♂️',
+                  title: 'बाहर जाओ',
+                  phonetic: 'जोतो गिद्रा बाहरे चालाग पे',
+                  script: 'ᱡᱚᱛᱚ ᱜᱤᱫᱽᱨᱟᱹ ᱵᱟᱦᱨᱮ ᱪᱟᱞᱟᱜ ᱯᱮ',
+                  color: Colors.purple.shade800,
+                  bgColor: Colors.purple.shade50,
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                _buildQuickMomentCard(
+                  context: context,
+                  emoji: '👏',
+                  title: 'ताली बजाओ',
+                  phonetic: 'थायो मे',
+                  script: 'ᱛᱷᱟᱭᱚ ᱢᱮ',
+                  color: Colors.green.shade800,
+                  bgColor: Colors.green.shade50,
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: AppSpacing.lg),
+
+          // Quick Action Shortcuts Bar
+          AppCard(
+            backgroundColor: AppColors.surface,
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
+            child: Row(
+              children: [
+                Expanded(
+                  child: _buildQuickActionButton(
+                    icon: Icons.style,
+                    label: 'चित्र शब्दकोश',
+                    sub: 'Flashcards',
+                    color: AppColors.tagLanguage,
+                    onTap: () => onNavigateToTab?.call(5),
+                  ),
+                ),
+                const SizedBox(
+                  height: 36,
+                  child: VerticalDivider(thickness: 1, width: 1),
+                ),
+                Expanded(
+                  child: _buildQuickActionButton(
+                    icon: Icons.print,
+                    label: 'कार्यपत्रक PDF',
+                    sub: 'Worksheets',
+                    color: AppColors.tagMath,
+                    onTap: () => onNavigateToTab?.call(4),
+                  ),
+                ),
+                const SizedBox(
+                  height: 36,
+                  child: VerticalDivider(thickness: 1, width: 1),
+                ),
+                Expanded(
+                  child: _buildQuickActionButton(
+                    icon: Icons.record_voice_over,
+                    label: 'कक्षा सहायक',
+                    sub: 'Face-to-Face',
+                    color: AppColors.secondary,
+                    onTap: () => onNavigateToTab?.call(2),
+                  ),
+                ),
               ],
             ),
           ),
 
           const SizedBox(height: AppSpacing.xl),
 
-          // Primary Prototype Spotlight (Milestone 3/4 Preview)
+          // Primary Prototype Spotlight (Milestone 3/4 Focus)
           Text(
             'Featured Lesson (Milestone 3/4 Focus)',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -264,6 +549,102 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildQuickMomentCard({
+    required BuildContext context,
+    required String emoji,
+    required String title,
+    required String phonetic,
+    required String script,
+    required Color color,
+    required Color bgColor,
+  }) {
+    return InkWell(
+      onTap: () => _playPhrase(context, phonetic, title, script),
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        width: 145,
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: color.withValues(alpha: 0.35)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(emoji, style: const TextStyle(fontSize: 22)),
+                Icon(Icons.volume_up, size: 16, color: color),
+              ],
+            ),
+            const SizedBox(height: 6),
+            Text(
+              title,
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: color),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            const SizedBox(height: 2),
+            Text(
+              script,
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            const SizedBox(height: 2),
+            Text(
+              phonetic,
+              style: TextStyle(fontSize: 10.5, fontStyle: FontStyle.italic, color: color.withValues(alpha: 0.8)),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildQuickActionButton({
+    required IconData icon,
+    required String label,
+    required String sub,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(8),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.12),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, color: color, size: 20),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+            ),
+            Text(
+              sub,
+              style: const TextStyle(fontSize: 9.5, color: AppColors.textSecondary),
+            ),
+          ],
+        ),
       ),
     );
   }

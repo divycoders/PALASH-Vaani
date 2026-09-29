@@ -116,15 +116,15 @@ void main() {
     await tester.tap(find.byIcon(Icons.record_voice_over_outlined));
     await tester.pumpAndSettle();
 
-    expect(find.text('Live Classroom Voice Pipeline'), findsOneWidget);
-    expect(find.text('अपनी किताब खोलो'), findsOneWidget);
+    expect(find.text('🧑‍🏫 शिक्षक मोड'), findsOneWidget);
+    expect(find.text('अपनी किताब खोलो'), findsWidgets);
 
     // Tap Translator tab
     await tester.tap(find.byIcon(Icons.translate_outlined));
     await tester.pumpAndSettle();
 
-    expect(find.text('Translate'), findsOneWidget);
-    expect(find.textContaining('DEMO TRANSLATION'), findsOneWidget);
+    expect(find.text('अनुवाद करें'), findsOneWidget);
+    expect(find.text('100% ऑफ़लाइन जनजातीय अनुवादक'), findsOneWidget);
   });
 
   testWidgets('Selecting a lesson opens LessonDetailDialog with SQLite data and prototype warning', (WidgetTester tester) async {
@@ -153,7 +153,7 @@ void main() {
     expect(find.text('Available Lessons (Local SQLite)'), findsOneWidget);
 
     // Tap Lesson Overview
-    await tester.tap(find.text('Lesson Overview'));
+    await tester.tap(find.text('Lesson Overview').first);
     await tester.pumpAndSettle();
 
     // Verify LessonDetailDialog content
@@ -189,4 +189,41 @@ void main() {
     expect(find.byType(NavigationRail), findsOneWidget);
     expect(find.byType(NavigationBar), findsNothing);
   });
+
+  testWidgets('TranslatorScreen translates custom sentence "सभी बच्चे बाहर जाओ" and displays Ol Chiki and Devanagari phonetics', (WidgetTester tester) async {
+    final mockConnectivity = MockConnectivityService(initialStatus: AppNetworkStatus.offline);
+    final mockCurriculum = MockCurriculumRepository();
+
+    tester.view.physicalSize = const Size(450, 900);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(() {
+      tester.view.resetPhysicalSize();
+      mockConnectivity.dispose();
+    });
+
+    await tester.pumpWidget(PalashVaaniApp(
+      connectivityService: mockConnectivity,
+      curriculumRepository: mockCurriculum,
+    ));
+    await tester.pumpAndSettle();
+
+    // Navigate to Translator
+    await tester.tap(find.byIcon(Icons.translate_outlined));
+    await tester.pumpAndSettle();
+
+    // Enter dynamic sentence
+    final textField = find.byType(TextField);
+    expect(textField, findsOneWidget);
+    await tester.enterText(textField, 'सभी बच्चे बाहर जाओ');
+    await tester.pumpAndSettle();
+
+    // Tap Translate button
+    await tester.tap(find.text('अनुवाद करें'));
+    await tester.pumpAndSettle();
+
+    // Verify Ol Chiki text and phonetic pronunciation guide are displayed
+    expect(find.textContaining('ᱡᱚᱛᱚ ᱜᱤᱫᱽᱨᱟᱹ'), findsWidgets);
+    expect(find.textContaining('जोतो गिद्रा बाहरे चालाग पे'), findsWidgets);
+  });
 }
+
