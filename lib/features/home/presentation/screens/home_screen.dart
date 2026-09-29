@@ -57,16 +57,24 @@ class HomeScreen extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.all(AppSpacing.md),
-                      decoration: BoxDecoration(
-                        color: AppColors.primary,
-                        borderRadius: AppSpacing.roundedMd,
-                      ),
-                      child: const Icon(
-                        Icons.school,
-                        color: Colors.white,
-                        size: 32,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.asset(
+                        'assets/images/app_logo.png',
+                        width: 60,
+                        height: 60,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: AppColors.primary,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Icon(Icons.school, color: Colors.white, size: 32),
+                          );
+                        },
                       ),
                     ),
                     const SizedBox(width: AppSpacing.md),
@@ -124,7 +132,7 @@ class HomeScreen extends StatelessWidget {
                   runSpacing: AppSpacing.xs,
                   children: [
                     StatusBadge(label: '5 NIPUN FLN Lessons', color: AppColors.tagMath, icon: Icons.menu_book),
-                    StatusBadge(label: 'Sub-3s Voice Bridge', color: AppColors.secondary, icon: Icons.bolt),
+                    StatusBadge(label: 'Sub-3s Voice Bridge', color: AppColors.secondary, icon: Icons.record_voice_over_rounded),
                     StatusBadge(label: 'Offline PDF Worksheets', color: AppColors.primary, icon: Icons.print),
                   ],
                 ),
@@ -168,7 +176,7 @@ class HomeScreen extends StatelessWidget {
                           color: Colors.white.withValues(alpha: 0.15),
                           shape: BoxShape.circle,
                         ),
-                        child: const Text('🧠', style: TextStyle(fontSize: 24)),
+                        child: const Icon(Icons.school_rounded, color: Colors.amber, size: 24),
                       ),
                       const SizedBox(width: AppSpacing.md),
                       Expanded(
@@ -187,11 +195,11 @@ class HomeScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(6),
                                   ),
                                   child: const Text(
-                                    'NEW • असीमित प्रश्न',
+                                    'NIPUN FLN प्रश्नोत्तरी',
                                     style: TextStyle(color: Colors.black87, fontSize: 10, fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                const Text('⭐ +2 Stars / प्रश्न', style: TextStyle(color: Colors.white70, fontSize: 11)),
+                                const Text('दैनिक अभ्यास', style: TextStyle(color: Colors.white70, fontSize: 11)),
                               ],
                             ),
                             const SizedBox(height: 3),
@@ -240,13 +248,21 @@ class HomeScreen extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Text(
-                  '⚡ 1-Tap Classroom Moments (कक्षा बातचीत)',
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.primaryDark,
+                child: Row(
+                  children: [
+                    const Icon(Icons.touch_app_rounded, size: 18, color: AppColors.primary),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        '1-Tap Classroom Moments (कक्षा बातचीत)',
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.primaryDark,
+                            ),
+                        overflow: TextOverflow.ellipsis,
                       ),
-                  overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
               ),
               TextButton.icon(

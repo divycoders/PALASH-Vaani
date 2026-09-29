@@ -904,6 +904,39 @@ class DatabaseHelper {
     }
   }
 
+  /// Checks whether first-time user has completed onboarding walkthrough
+  Future<bool> isOnboardingCompleted() async {
+    try {
+      final db = await database;
+      await db.execute('CREATE TABLE IF NOT EXISTS app_preferences (key TEXT PRIMARY KEY, value TEXT NOT NULL)');
+      final res = await db.query(
+        'app_preferences',
+        where: 'key = ?',
+        whereArgs: ['onboarding_completed'],
+      );
+      if (res.isEmpty) return false;
+      return res.first['value'] == 'true';
+    } catch (e) {
+      debugPrint('Error reading onboarding status: $e');
+      return false;
+    }
+  }
+
+  /// Marks onboarding walkthrough as completed
+  Future<void> setOnboardingCompleted({bool completed = true}) async {
+    try {
+      final db = await database;
+      await db.execute('CREATE TABLE IF NOT EXISTS app_preferences (key TEXT PRIMARY KEY, value TEXT NOT NULL)');
+      await db.insert(
+        'app_preferences',
+        {'key': 'onboarding_completed', 'value': completed ? 'true' : 'false'},
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    } catch (e) {
+      debugPrint('Error saving onboarding status: $e');
+    }
+  }
+
   Future<void> close() async {
     final db = _database;
     if (db != null && db.isOpen) {

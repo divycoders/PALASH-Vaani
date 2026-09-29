@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../routes/app_routes.dart';
 import '../services/connectivity_service.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_spacing.dart';
@@ -303,6 +304,16 @@ class ResponsiveScaffold extends StatelessWidget {
                   onTap: () {
                     Navigator.pop(ctx);
                     onIndexChanged(7);
+                  },
+                ),
+                const Divider(),
+                ListTile(
+                  leading: const Icon(Icons.slideshow_rounded, color: AppColors.secondary),
+                  title: const Text('ऐप डेमो व परिचय (App Walkthrough)'),
+                  subtitle: const Text('MTB-MLE व NIPUN Bharat फीचर्स का इंटरैक्टिव डेमो'),
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    Navigator.pushNamed(context, AppRoutes.onboarding);
                   },
                 ),
               ],

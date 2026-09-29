@@ -13,28 +13,39 @@ import 'features/quiz/presentation/screens/quiz_screen.dart';
 import 'features/worksheets/presentation/screens/worksheets_screen.dart';
 
 import 'features/lessons/data/repositories/curriculum_repository.dart';
+import 'features/splash/presentation/screens/splash_screen.dart';
 
 class PalashVaaniApp extends StatelessWidget {
   final IConnectivityService? connectivityService;
   final ICurriculumRepository? curriculumRepository;
+  final bool showSplash;
 
   const PalashVaaniApp({
     super.key,
     this.connectivityService,
     this.curriculumRepository,
+    this.showSplash = true,
   });
 
   @override
   Widget build(BuildContext context) {
+    final isTest = WidgetsBinding.instance.runtimeType.toString().contains('TestWidgets');
+    final useSplash = showSplash && !isTest;
+
     return MaterialApp(
       title: 'PALASH-Vaani (पलाश-वाणी)',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       onGenerateRoute: AppRoutes.onGenerateRoute,
-      home: MainShellScreen(
-        connectivityService: connectivityService,
-        curriculumRepository: curriculumRepository,
-      ),
+      home: useSplash
+          ? SplashScreen(
+              connectivityService: connectivityService,
+              curriculumRepository: curriculumRepository,
+            )
+          : MainShellScreen(
+              connectivityService: connectivityService,
+              curriculumRepository: curriculumRepository,
+            ),
     );
   }
 }

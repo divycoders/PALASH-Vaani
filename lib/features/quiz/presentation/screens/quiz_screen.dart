@@ -92,11 +92,11 @@ class _QuizScreenState extends State<QuizScreen> {
         SnackBar(
           content: Row(
             children: [
-              const Icon(Icons.stars_rounded, color: Colors.amber, size: 24),
+              const Icon(Icons.check_circle_rounded, color: Colors.greenAccent, size: 24),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  '🌟 बहुत बढ़िया! सही जवाब! (+2 Stars ⭐) Streak: $_streak 🔥',
+                  'सही जवाब! (+2 अंक अर्जित) • स्ट्रीक: $_streak',
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -210,13 +210,13 @@ class _QuizScreenState extends State<QuizScreen> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  _buildCategoryChip('all', '🌟 सभी विषय (All)', Icons.stars_rounded),
+                  _buildCategoryChip('all', 'सभी विषय (All)', Icons.dashboard_customize_rounded),
                   const SizedBox(width: 8),
-                  _buildCategoryChip('maths', '🔢 FLN गणित (Maths)', Icons.calculate_outlined),
+                  _buildCategoryChip('maths', 'FLN गणित (Maths)', Icons.calculate_outlined),
                   const SizedBox(width: 8),
-                  _buildCategoryChip('language', '🔤 संथाली भाषा (Language)', Icons.translate_rounded),
+                  _buildCategoryChip('language', 'संथाली भाषा (Language)', Icons.translate_rounded),
                   const SizedBox(width: 8),
-                  _buildCategoryChip('evs', '🌿 पर्यावरण (EVS)', Icons.nature_people_outlined),
+                  _buildCategoryChip('evs', 'पर्यावरण (EVS)', Icons.eco_outlined),
                 ],
               ),
             ),

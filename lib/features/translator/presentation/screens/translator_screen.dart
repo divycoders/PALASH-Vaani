@@ -775,18 +775,24 @@ class _TranslatorScreenState extends State<TranslatorScreen> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      const Text(
-                        '⚡ 1-टैप बोलें: ',
-                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary),
+                      const Row(
+                        children: [
+                          Icon(Icons.touch_app_rounded, size: 14, color: AppColors.primary),
+                          SizedBox(width: 4),
+                          Text(
+                            'त्वरित बोलें: ',
+                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary),
+                          ),
+                        ],
                       ),
-                      _buildQuickVoiceChip('अपनी किताब खोलो', '📖 किताब खोलो'),
-                      _buildQuickVoiceChip('सब शांत हो जाओ', '🤫 शांत रहो'),
-                      _buildQuickVoiceChip('बैठ जाओ', '🪑 बैठ जाओ'),
-                      _buildQuickVoiceChip('हाथ धो लो', '🧼 हाथ धो लो'),
-                      _buildQuickVoiceChip('पानी पी लो', '💧 पानी पी लो'),
-                      _buildQuickVoiceChip('open your book', '🇬🇧 open book'),
-                      _buildQuickVoiceChip('sit down', '🇬🇧 sit down'),
-                      _buildQuickVoiceChip('pani pina hai', '🗣️ pani pina hai'),
+                      _buildQuickVoiceChip('अपनी किताब खोलो', 'किताब खोलो'),
+                      _buildQuickVoiceChip('सब शांत हो जाओ', 'शांत रहो'),
+                      _buildQuickVoiceChip('बैठ जाओ', 'बैठ जाओ'),
+                      _buildQuickVoiceChip('हाथ धो लो', 'हाथ धो लो'),
+                      _buildQuickVoiceChip('पानी पी लो', 'पानी पी लो'),
+                      _buildQuickVoiceChip('open your book', 'Open Book'),
+                      _buildQuickVoiceChip('sit down', 'Sit Down'),
+                      _buildQuickVoiceChip('pani pina hai', 'Pani Pina Hai'),
                     ],
                   ),
                 ),

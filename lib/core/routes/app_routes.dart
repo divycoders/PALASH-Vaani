@@ -8,10 +8,15 @@ import '../../features/flashcards/presentation/screens/flashcards_screen.dart';
 import '../../features/diagnostics/presentation/screens/diagnostics_screen.dart';
 import '../../features/quiz/presentation/screens/quiz_screen.dart';
 
+import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
+import '../../features/splash/presentation/screens/splash_screen.dart';
+
 class AppRoutes {
   AppRoutes._();
 
   static const String home = '/';
+  static const String splash = '/splash';
+  static const String onboarding = '/onboarding';
   static const String lessons = '/lessons';
   static const String classroom = '/classroom';
   static const String translator = '/translator';
@@ -22,6 +27,16 @@ class AppRoutes {
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case splash:
+        return MaterialPageRoute(
+          builder: (_) => const SplashScreen(),
+          settings: settings,
+        );
+      case onboarding:
+        return MaterialPageRoute(
+          builder: (_) => const OnboardingScreen(),
+          settings: settings,
+        );
       case quiz:
         return MaterialPageRoute(
           builder: (_) => const QuizScreen(),

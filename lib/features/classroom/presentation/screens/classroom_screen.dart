@@ -1018,10 +1018,18 @@ class _ClassroomScreenState extends State<ClassroomScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Expanded(
-                child: Text(
-                  '⚡ त्वरित कक्षा निर्देश (Classroom Moments):',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: AppColors.textPrimary),
-                  overflow: TextOverflow.ellipsis,
+                child: Row(
+                  children: [
+                    Icon(Icons.touch_app_rounded, size: 16, color: AppColors.primary),
+                    SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        'त्वरित कक्षा निर्देश (Classroom Moments):',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: AppColors.textPrimary),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(width: 6),
