@@ -1490,7 +1490,7 @@ class _ClassroomLessonPlayerState extends State<ClassroomLessonPlayer> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '🎉 शाबाश! निपुण दक्षता सिद्ध हुई!',
+                        'शाबाश! FLN दक्षता सिद्ध हुई!',
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.success),
                       ),
                       Text(
