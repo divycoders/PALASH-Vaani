@@ -20,7 +20,7 @@ class SpeechRecognitionService {
     Function(String status)? onStatus,
     Function(String error)? onError,
   }) async {
-    if (_isInitialized) return _isAvailable;
+    if (_isInitialized && _isAvailable) return _isAvailable;
     try {
       _isAvailable = await _speech.initialize(
         onError: (val) {
@@ -59,6 +59,11 @@ class SpeechRecognitionService {
     _currentStatusCallback = onStatus;
     _currentErrorCallback = onError;
 
+    if (_speech.isListening) {
+      await stopListening();
+      await Future.delayed(const Duration(milliseconds: 150));
+    }
+
     final available = await initialize(
       onStatus: (status) {
         _currentStatusCallback?.call(status);
@@ -77,7 +82,6 @@ class SpeechRecognitionService {
       // Find best available locale
       String? targetLocaleId;
       if (_availableLocales.isNotEmpty) {
-        // Look for exact match or language prefix match
         final normalized = languageCode.replaceAll('-', '_').toLowerCase();
         for (final loc in _availableLocales) {
           final locNorm = loc.localeId.replaceAll('-', '_').toLowerCase();
@@ -87,9 +91,9 @@ class SpeechRecognitionService {
           }
         }
         if (targetLocaleId == null) {
-          // Look for any Hindi locale
+          final prefix = languageCode.split(RegExp('[-_]'))[0].toLowerCase();
           for (final loc in _availableLocales) {
-            if (loc.localeId.toLowerCase().startsWith('hi')) {
+            if (loc.localeId.toLowerCase().startsWith(prefix)) {
               targetLocaleId = loc.localeId;
               break;
             }
@@ -97,11 +101,18 @@ class SpeechRecognitionService {
         }
       }
 
+      if (targetLocaleId == null) {
+        final sysLoc = await _speech.systemLocale();
+        targetLocaleId = sysLoc?.localeId;
+      }
+
       final options = SpeechListenOptions(
-        listenMode: ListenMode.dictation,
+        listenMode: ListenMode.confirmation,
         cancelOnError: false,
         partialResults: true,
-        onDevice: true,
+        onDevice: false,
+        listenFor: const Duration(seconds: 30),
+        pauseFor: const Duration(seconds: 3),
         localeId: targetLocaleId,
       );
 
