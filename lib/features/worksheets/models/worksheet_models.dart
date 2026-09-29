@@ -103,7 +103,7 @@ class WorksheetTemplate {
   });
 }
 
-/// Repository providing authentic NIPUN Bharat MTB-MLE worksheets for Jharkhand
+/// Repository providing authentic PALASH MTB-MLE worksheets for Jharkhand
 class WorksheetRepository {
   WorksheetRepository._();
 

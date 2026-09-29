@@ -52,7 +52,7 @@ void main() {
       expect(res.latencyMs, lessThan(3000));
     });
 
-    test('Translates NIPUN Bharat Cardinal Numbers accurately', () {
+    test('Translates PALASH FLN Cardinal Numbers accurately', () {
       final resOne = engine.translateHindiToTribal('१', targetLanguage: TribalLanguage.santhali);
       expect(resOne.primaryText, contains('ᱢᱤᱫ'));
 
@@ -63,7 +63,7 @@ void main() {
       expect(resTen.primaryText, contains('ᱜᱮᱞ'));
     });
 
-    test('Translates NIPUN FLN vocabulary terms', () {
+    test('Translates PALASH FLN vocabulary terms', () {
       final resTree = engine.translateHindiToTribal('पेड़', targetLanguage: TribalLanguage.santhali);
       expect(resTree.primaryText, equals('ᱫᱟᱨᱮ'));
 
@@ -185,7 +185,7 @@ void main() {
       }
     });
 
-    test('Contains NIPUN Bharat numbers', () {
+    test('Contains PALASH FLN numbers', () {
       expect(TribalLexiconData.numbers.length, greaterThanOrEqualTo(10));
     });
 

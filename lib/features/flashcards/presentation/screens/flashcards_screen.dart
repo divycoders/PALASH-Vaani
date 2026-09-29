@@ -173,7 +173,7 @@ class _FlashcardsScreenState extends State<FlashcardsScreen> {
 
   String _getStarLevelTitle() {
     if (_flashcardStars >= 15) {
-      return 'NIPUN FLN मास्टर (Expert)';
+      return 'PALASH FLN मास्टर (Expert)';
     } else if (_flashcardStars >= 5) {
       return 'मातृभाषा शिक्षार्थी (Learner)';
     } else {

@@ -159,7 +159,7 @@ class _QuizScreenState extends State<QuizScreen> {
                     Icon(Icons.workspace_premium_rounded, color: Colors.amber, size: 20),
                     SizedBox(width: 6),
                     Text(
-                      'FLN बाल विजेता (NIPUN Champ)',
+                      'FLN बाल विजेता (FLN Champ)',
                       style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryDark),
                     ),
                   ],

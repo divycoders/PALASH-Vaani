@@ -263,7 +263,7 @@ class _WorksheetsScreenState extends State<WorksheetsScreen> {
                           ),
                           const SizedBox(height: AppSpacing.xxs),
                           const Text(
-                            'Offline MTB-MLE Worksheet Engine • JCERT & NIPUN Bharat FLN',
+                            'Offline MTB-MLE Worksheet Engine • JCERT & PALASH FLN',
                             style: TextStyle(
                               fontSize: 12.5,
                               fontWeight: FontWeight.w600,
@@ -612,7 +612,7 @@ class _WorksheetsScreenState extends State<WorksheetsScreen> {
           const SizedBox(height: AppSpacing.lg),
 
           // -------------------------------------------------------------
-          // 5. NIPUN Bharat MTB-MLE Pedagogy Info Footer
+          // 5. PALASH MTB-MLE FLN Pedagogy Info Footer
           // -------------------------------------------------------------
           AppCard(
             backgroundColor: AppColors.surfaceVariant.withValues(alpha: 0.5),
@@ -716,7 +716,7 @@ class _WorksheetsScreenState extends State<WorksheetsScreen> {
                       ),
                       SizedBox(height: 2),
                       Text(
-                        'PALASH Mother Tongue-Based Multilingual Education (MTB-MLE) • NIPUN FLN',
+                        'PALASH Mother Tongue-Based Multilingual Education (MTB-MLE) • FLN',
                         style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: Color(0xFF4E342E)),
                         textAlign: TextAlign.center,
                       ),
@@ -800,7 +800,7 @@ class _WorksheetsScreenState extends State<WorksheetsScreen> {
                         style: const TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold, color: Color(0xFF0D47A1)),
                       ),
                       Text(
-                        'NIPUN Code (${_selectedTemplate.nipunCode}): ${_selectedTemplate.competencyTitle}',
+                        'FLN Code (${_selectedTemplate.nipunCode}): ${_selectedTemplate.competencyTitle}',
                         style: const TextStyle(fontSize: 8.5, color: Colors.black87),
                       ),
                     ],

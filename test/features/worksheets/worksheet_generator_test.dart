@@ -6,7 +6,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('Worksheet Models & Repository Tests', () {
-    test('WorksheetRepository contains multi-grade NIPUN FLN templates', () {
+    test('WorksheetRepository contains multi-grade PALASH FLN templates', () {
       final all = WorksheetRepository.allTemplates;
       expect(all.length, greaterThanOrEqualTo(6));
 

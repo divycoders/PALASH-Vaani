@@ -310,7 +310,7 @@ class ResponsiveScaffold extends StatelessWidget {
                 ListTile(
                   leading: const Icon(Icons.slideshow_rounded, color: AppColors.secondary),
                   title: const Text('ऐप डेमो व परिचय (App Walkthrough)'),
-                  subtitle: const Text('MTB-MLE व NIPUN Bharat फीचर्स का इंटरैक्टिव डेमो'),
+                  subtitle: const Text('PALASH MTB-MLE व FLN फीचर्स का इंटरैक्टिव डेमो'),
                   onTap: () {
                     Navigator.pop(ctx);
                     Navigator.pushNamed(context, AppRoutes.onboarding);

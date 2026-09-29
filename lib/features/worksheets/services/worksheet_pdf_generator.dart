@@ -110,7 +110,7 @@ class WorksheetPdfGenerator {
                               borderRadius: pw.BorderRadius.circular(3),
                             ),
                             child: pw.Text(
-                              'PALASH Mother Tongue-Based Multilingual Education (MTB-MLE) • NIPUN Bharat FLN',
+                              'PALASH Mother Tongue-Based Multilingual Education (MTB-MLE) • JCERT FLN',
                               style: pw.TextStyle(font: fontBold, fontSize: 8.5, color: PdfColors.brown900),
                               textAlign: pw.TextAlign.center,
                             ),
@@ -201,7 +201,7 @@ class WorksheetPdfGenerator {
               pw.SizedBox(height: 8),
 
               // -------------------------------------------------------------
-              // 3. Worksheet Topic, Competency & NIPUN Code Bar
+              // 3. Worksheet Topic, Competency & FLN Code Bar
               // -------------------------------------------------------------
               pw.Container(
                 padding: const pw.EdgeInsets.symmetric(horizontal: 8, vertical: 5),
@@ -222,7 +222,7 @@ class WorksheetPdfGenerator {
                             style: pw.TextStyle(font: fontBold, fontSize: 10.5, color: PdfColors.blue900),
                           ),
                           pw.Text(
-                            'अधिगम प्रतिफल (NIPUN LO Code: ${template.nipunCode}): ${template.competencyTitle}',
+                            'अधिगम प्रतिफल (FLN LO Code: ${template.nipunCode}): ${template.competencyTitle}',
                             style: pw.TextStyle(font: fontRegular, fontSize: 8.5, color: PdfColors.grey800),
                           ),
                         ],

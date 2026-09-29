@@ -528,7 +528,7 @@ class _ClassroomLessonPlayerState extends State<ClassroomLessonPlayer> {
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  '🎉 बधाई! "${widget.lesson.titleHi}" की NIPUN दक्षता पूर्ण हुई!',
+                  'बधाई! "${widget.lesson.titleHi}" की FLN दक्षता पूर्ण हुई!',
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),

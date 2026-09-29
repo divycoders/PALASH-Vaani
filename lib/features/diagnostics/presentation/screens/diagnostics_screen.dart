@@ -104,7 +104,7 @@ class _DiagnosticsScreenState extends State<DiagnosticsScreen> {
             backgroundColor: AppColors.primaryContainer.withValues(alpha: 0.3),
             borderColor: AppColors.primaryLight,
             padding: const EdgeInsets.all(AppSpacing.lg),
-            title: 'SIH Problem Statement 26042 SLA Verification',
+            title: 'SIH 2026 Problem Statement 26042 SLA Verification',
             subtitle: 'Real-Time Voice & Translation Latency Constraint (≤ 3.0s)',
             trailing: StatusBadge(
               label: _benchmarkResults == null
@@ -225,7 +225,7 @@ class _DiagnosticsScreenState extends State<DiagnosticsScreen> {
                 const Divider(),
                 _buildDiagnosticRow(
                   title: 'Worksheet PDF Engine',
-                  subtitle: 'Client-side NIPUN Bharat printable generator',
+                  subtitle: 'Client-side JCERT FLN printable generator',
                   status: 'Active (Offline Export)',
                   statusColor: AppColors.success,
                 ),

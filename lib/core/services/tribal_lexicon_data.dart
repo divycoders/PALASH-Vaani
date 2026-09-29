@@ -512,7 +512,7 @@ class TribalLexiconData {
   ];
 
   // -------------------------------------------------------------
-  // 2. Cardinal Numbers (NIPUN Bharat Numeracy FLN 1-100)
+  // 2. Cardinal Numbers (PALASH Numeracy FLN 1-100)
   // -------------------------------------------------------------
   static final List<Map<String, dynamic>> numbers = [
     {

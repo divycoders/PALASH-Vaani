@@ -128,7 +128,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // NIPUN Bharat FLN Class Mastery Dashboard (Top Card)
+          // PALASH FLN Class Mastery Dashboard (Top Card)
           AppCard(
             backgroundColor: AppColors.primaryContainer.withValues(alpha: 0.35),
             borderColor: AppColors.primary.withValues(alpha: 0.3),
@@ -142,7 +142,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
                     const SizedBox(width: 6),
                     const Expanded(
                       child: Text(
-                        'NIPUN FLN Class Mastery',
+                        'PALASH FLN Class Mastery',
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: AppColors.primaryDark),
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -355,14 +355,14 @@ class _LessonsScreenState extends State<LessonsScreen> {
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
-                                '🎯 NIPUN LO: ${lesson.objectiveHi}',
+                                'FLN LO: ${lesson.objectiveHi}',
                                 style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.primaryDark),
                               ),
                             ),
                           ),
                           const SizedBox(width: 6),
                           NaturalAudioButton(
-                            textToSpeak: 'निपुण दक्षता: ${lesson.objectiveHi}',
+                            textToSpeak: 'दक्षता लक्ष्य: ${lesson.objectiveHi}',
                             speakId: 'card_lo_${lesson.id}',
                             isCompact: true,
                             tooltip: 'दक्षता उद्देश्य सुनें',

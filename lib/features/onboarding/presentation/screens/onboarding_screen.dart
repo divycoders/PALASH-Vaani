@@ -24,7 +24,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           'झारखंड के जनजातीय क्षेत्रों के प्राथमिक विद्यालयों के लिए समर्पित मंच। हिंदी भाषी शिक्षकों और संथाली, हो व मुंडारी भाषी बच्चों के बीच सीखने की दूरी को मिटाना।',
       'icon': Icons.school_rounded,
       'isLogo': true,
-      'badge': 'NIPUN Bharat • SIH 26042',
+      'badge': 'PALASH FLN • SIH 2026 (ID: 26042)',
     },
     {
       'title': 'कक्षा ध्वनि सेतु (Real-Time Voice Bridge)',

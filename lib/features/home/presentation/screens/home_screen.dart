@@ -131,7 +131,7 @@ class HomeScreen extends StatelessWidget {
                   spacing: AppSpacing.xs,
                   runSpacing: AppSpacing.xs,
                   children: [
-                    StatusBadge(label: '5 NIPUN FLN Lessons', color: AppColors.tagMath, icon: Icons.menu_book),
+                    StatusBadge(label: '21 PALASH FLN Lessons', color: AppColors.tagMath, icon: Icons.menu_book),
                     StatusBadge(label: 'Sub-3s Voice Bridge', color: AppColors.secondary, icon: Icons.record_voice_over_rounded),
                     StatusBadge(label: 'Offline PDF Worksheets', color: AppColors.primary, icon: Icons.print),
                   ],
@@ -195,7 +195,7 @@ class HomeScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(6),
                                   ),
                                   child: const Text(
-                                    'NIPUN FLN प्रश्नोत्तरी',
+                                    'PALASH FLN प्रश्नोत्तरी',
                                     style: TextStyle(color: Colors.black87, fontSize: 10, fontWeight: FontWeight.bold),
                                   ),
                                 ),
