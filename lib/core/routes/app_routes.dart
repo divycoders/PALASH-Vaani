@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../features/home/presentation/screens/home_screen.dart';
+import '../../app.dart';
 import '../../features/lessons/presentation/screens/lessons_screen.dart';
 import '../../features/classroom/presentation/screens/classroom_screen.dart';
 import '../../features/translator/presentation/screens/translator_screen.dart';
@@ -44,7 +44,7 @@ class AppRoutes {
         );
       case home:
         return MaterialPageRoute(
-          builder: (_) => const HomeScreen(),
+          builder: (_) => const MainShellScreen(),
           settings: settings,
         );
       case lessons:

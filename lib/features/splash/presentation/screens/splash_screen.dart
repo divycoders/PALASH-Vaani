@@ -73,9 +73,11 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     } else {
       Navigator.of(context).pushReplacement(
         PageRouteBuilder(
-          pageBuilder: (_, _, _) => OnboardingScreen(
+          pageBuilder: (onboardingContext, _, _) => OnboardingScreen(
+            connectivityService: widget.connectivityService,
+            curriculumRepository: widget.curriculumRepository,
             onComplete: () {
-              Navigator.of(context).pushReplacement(
+              Navigator.of(onboardingContext).pushAndRemoveUntil(
                 PageRouteBuilder(
                   pageBuilder: (_, _, _) => MainShellScreen(
                     connectivityService: widget.connectivityService,
@@ -86,6 +88,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                   },
                   transitionDuration: const Duration(milliseconds: 400),
                 ),
+                (route) => false,
               );
             },
           ),

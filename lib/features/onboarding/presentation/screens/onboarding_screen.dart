@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import '../../../../app.dart';
 import '../../../../core/database/database_helper.dart';
+import '../../../../core/services/connectivity_service.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
+import '../../../lessons/data/repositories/curriculum_repository.dart';
 
 class OnboardingScreen extends StatefulWidget {
   final VoidCallback? onComplete;
+  final IConnectivityService? connectivityService;
+  final ICurriculumRepository? curriculumRepository;
 
-  const OnboardingScreen({super.key, this.onComplete});
+  const OnboardingScreen({
+    super.key,
+    this.onComplete,
+    this.connectivityService,
+    this.curriculumRepository,
+  });
 
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
@@ -56,21 +66,47 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   ];
 
   Future<void> _completeOnboarding() async {
-    await DatabaseHelper.instance.setOnboardingCompleted(completed: true);
-    if (!mounted) return;
-    if (widget.onComplete != null) {
-      widget.onComplete!();
-    } else {
-      Navigator.of(context).pushReplacementNamed('/');
+    try {
+      await DatabaseHelper.instance.setOnboardingCompleted(completed: true);
+    } catch (e) {
+      debugPrint('Error saving onboarding state: $e');
     }
+
+    if (!mounted) return;
+
+    if (widget.onComplete != null) {
+      try {
+        widget.onComplete!();
+        return;
+      } catch (e) {
+        debugPrint('onComplete callback failed, navigating directly: $e');
+      }
+    }
+
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (_) => MainShellScreen(
+          connectivityService: widget.connectivityService,
+          curriculumRepository: widget.curriculumRepository,
+        ),
+      ),
+      (route) => false,
+    );
   }
 
   void _nextPage() {
     if (_currentPage < _slides.length - 1) {
-      _pageController.nextPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
+      if (_pageController.hasClients) {
+        _pageController.animateToPage(
+          _currentPage + 1,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      } else {
+        setState(() {
+          _currentPage++;
+        });
+      }
     } else {
       _completeOnboarding();
     }
